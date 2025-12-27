@@ -41,8 +41,16 @@ function in_jj_repo() {
 # Outputs formatted prompt string with jj repository information.
 #
 function _omz_jj_prompt_info() {
-  # Fast fail if not in jj repo.
-  in_jj_repo || return 0
+  # If not in jj repo, fall back to git prompt.
+  if ! in_jj_repo; then
+    # Call git's internal handler if it exists, otherwise use public function.
+    if (( $+functions[_omz_git_prompt_info] )); then
+      _omz_git_prompt_info
+    else
+      git_prompt_info
+    fi
+    return 0
+  fi
 
   # Single command to get core info (delimiter: |).
   # Format: shortest_prefix|change_id|bookmarks|conflict|empty_desc|divergent

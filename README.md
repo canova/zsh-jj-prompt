@@ -13,6 +13,7 @@ A zsh plugin for [Jujutsu (jj)](https://github.com/martinvonz/jj) version contro
   - `⇔` - Divergent (multiple commits with same change_id)
 - **Async Prompts**: Non-blocking prompt updates for smooth UX
 - **Fully Configurable**: All display options via theme variables
+- **Git Fallback**: Automatically shows git prompt when not in a jj repository
 - **oh-my-zsh Compatible**: Follows oh-my-zsh plugin conventions
 
 ## Installation
@@ -50,6 +51,8 @@ Note: Async support requires oh-my-zsh's async infrastructure. Without oh-my-zsh
 ## Usage
 
 Add the `jj_prompt_info()` function to your prompt. The plugin follows the same pattern as oh-my-zsh's git plugin.
+
+**Note**: The plugin automatically falls back to `git_prompt_info()` when not in a jj repository, so you can use `jj_prompt_info()` everywhere and it will show the appropriate prompt.
 
 ### Basic Example (Robbyrussell-style)
 
