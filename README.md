@@ -1,5 +1,7 @@
 # zsh-jj-prompt
 
+<img width="713" height="101" alt="zsh-jj-prompt" src="https://github.com/user-attachments/assets/f1857b13-0eeb-47ae-9af2-3231e6e29e77" />
+
 A zsh plugin for [Jujutsu (jj)](https://github.com/martinvonz/jj) version control system, providing prompt functions similar to oh-my-zsh's git prompt.
 
 ## Features
