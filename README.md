@@ -1,4 +1,4 @@
-# zsh-jj
+# zsh-jj-prompt
 
 A zsh plugin for [Jujutsu (jj)](https://github.com/martinvonz/jj) version control system, providing prompt functions similar to oh-my-zsh's git prompt.
 
@@ -23,13 +23,13 @@ A zsh plugin for [Jujutsu (jj)](https://github.com/martinvonz/jj) version contro
 1. Clone this repository into your oh-my-zsh custom plugins directory:
 
 ```bash
-git clone https://github.com/canova/zsh-jj ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/jujutsu
+git clone https://github.com/canova/zsh-jj-prompt ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-jj-prompt
 ```
 
-2. Add `jujutsu` to your plugins array in `~/.zshrc`:
+2. Add `zsh-jj-prompt` to your plugins array in `~/.zshrc`:
 
 ```bash
-plugins=(... jujutsu)
+plugins=(... zsh-jj-prompt)
 ```
 
 3. Restart your shell or run:
@@ -43,7 +43,7 @@ source ~/.zshrc
 Source the plugin file directly in your `~/.zshrc`:
 
 ```bash
-source /path/to/jujutsu.plugin.zsh
+source /path/to/zsh-jj-prompt.plugin.zsh
 ```
 
 Note: Async support requires oh-my-zsh's async infrastructure. Without oh-my-zsh, the plugin will run in synchronous mode.
@@ -91,7 +91,7 @@ If you want to use this plugin as a true drop-in replacement without modifying y
 ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=true
 
 # Then load plugins.
-plugins=(... jujutsu)
+plugins=(... zsh-jj-prompt)
 ```
 
 With this enabled, your existing theme's `git_prompt_info` calls will automatically use jj in jj repositories and git in git repositories. No theme modifications needed!
