@@ -82,6 +82,20 @@ PROMPT+='$(jj_bookmarks) '
 PROMPT+='$(jj_prompt_status)'
 ```
 
+### Drop-in Replacement for git_prompt_info
+
+If you want to use this plugin as a true drop-in replacement without modifying your existing theme, enable override mode in your `~/.zshrc` **before** loading the plugin:
+
+```bash
+# Enable drop-in replacement mode.
+ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=true
+
+# Then load plugins.
+plugins=(... jujutsu)
+```
+
+With this enabled, your existing theme's `git_prompt_info` calls will automatically use jj in jj repositories and git in git repositories. No theme modifications needed!
+
 ## Output Examples
 
 - `jj:(qpvuntsm main) ` - On main bookmark
@@ -104,8 +118,8 @@ ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=true
 # Change ID length (default: 8)
 ZSH_THEME_JJ_CHANGE_ID_LENGTH=8
 
-# Ancestor search depth (default: 10)
-ZSH_THEME_JJ_ANCESTOR_DEPTH=10
+# Drop-in replacement mode: override git_prompt_info (default: false)
+ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=false
 ```
 
 ### Formatting

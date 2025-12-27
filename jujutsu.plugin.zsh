@@ -26,6 +26,9 @@ function in_jj_repo() {
 : ${ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS:=true}
 : ${ZSH_THEME_JJ_CHANGE_ID_LENGTH:=8}
 
+# Drop-in replacement mode: override git_prompt_info to use jj when available.
+: ${ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT:=false}
+
 # Formatting.
 : ${ZSH_THEME_JJ_PROMPT_PREFIX:="%{$fg_bold[blue]%}jj:(%{$fg[red]%}"}
 : ${ZSH_THEME_JJ_PROMPT_SUFFIX:="%{$reset_color%} "}
@@ -153,9 +156,16 @@ if zstyle -t ':omz:alpha:lib:jj' async-prompt \
 
   # Register async handler on first precmd where jj_prompt_info is used.
   function _defer_async_jj_register() {
-    case "${PS1}:${PS2}:${PS3}:${PS4}:${RPROMPT}:${RPS1}:${RPS2}:${RPS3}:${RPS4}" in
+    local prompt_vars="${PS1}:${PS2}:${PS3}:${PS4}:${RPROMPT}:${RPS1}:${RPS2}:${RPS3}:${RPS4}"
+    case "$prompt_vars" in
     *(\$\(jj_prompt_info\)|\`jj_prompt_info\`)*)
       _omz_register_handler _omz_jj_prompt_info
+      ;;
+    *(\$\(git_prompt_info\)|\`git_prompt_info\`)*)
+      # Also register if git_prompt_info is used and override mode is enabled.
+      if [[ "$ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT" == "true" ]]; then
+        _omz_register_handler _omz_jj_prompt_info
+      fi
       ;;
     esac
     add-zsh-hook -d precmd _defer_async_jj_register
@@ -219,3 +229,19 @@ function jj_bookmarks() {
 
   [[ -n "$bookmarks" ]] && echo -n "$bookmarks"
 }
+
+#
+# Drop-in replacement mode.
+# Override git_prompt_info to use jj_prompt_info when in jj repos.
+#
+if [[ "$ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT" == "true" ]]; then
+  # Save original git_prompt_info if it exists.
+  if (( $+functions[git_prompt_info] )); then
+    functions[_original_git_prompt_info]="${functions[git_prompt_info]}"
+  fi
+
+  # Override git_prompt_info to use jj_prompt_info.
+  function git_prompt_info() {
+    jj_prompt_info
+  }
+fi
