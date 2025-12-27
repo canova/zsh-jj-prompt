@@ -45,9 +45,10 @@ function _omz_jj_prompt_info() {
   in_jj_repo || return 0
 
   # Single command to get core info (delimiter: |).
-  # Format: change_id|bookmarks|conflict|empty_desc|divergent
+  # Format: shortest_prefix|change_id|bookmarks|conflict|empty_desc|divergent
   local jj_info=$(__jj_prompt_command log -r @ --no-graph -T \
-    'change_id.short('${ZSH_THEME_JJ_CHANGE_ID_LENGTH}') ++ "|" ++
+    'change_id.shortest() ++ "|" ++
+     change_id.short('${ZSH_THEME_JJ_CHANGE_ID_LENGTH}') ++ "|" ++
      bookmarks.map(|ref| ref.name()).join(",") ++ "|" ++
      if(conflict, "1", "") ++ "|" ++
      if(description == "", "1", "") ++ "|" ++
@@ -59,11 +60,12 @@ function _omz_jj_prompt_info() {
   # Parse fields using zsh field splitting.
   local -a fields
   fields=("${(@s/|/)jj_info}")
-  local change_id="${fields[1]}"
-  local bookmarks="${fields[2]}"
-  local has_conflict="${fields[3]}"
-  local is_empty="${fields[4]}"
-  local is_divergent="${fields[5]}"
+  local shortest_prefix="${fields[1]}"
+  local change_id="${fields[2]}"
+  local bookmarks="${fields[3]}"
+  local has_conflict="${fields[4]}"
+  local is_empty="${fields[5]}"
+  local is_divergent="${fields[6]}"
 
   # Get ancestor bookmarks if enabled and no direct bookmarks.
   local ancestor_bookmarks=""
@@ -97,9 +99,14 @@ function _omz_jj_prompt_info() {
   # Format output.
   local output="$ZSH_THEME_JJ_PROMPT_PREFIX"
 
-  # Add change ID if enabled.
+  # Add change ID if enabled, with unique prefix highlighting.
   if [[ "$ZSH_THEME_JJ_SHOW_CHANGE_ID" != "false" ]]; then
-    output+="${change_id:gs/%/%%}"
+    local prefix_len=${#shortest_prefix}
+    local prefix="${change_id:0:$prefix_len}"
+    local suffix="${change_id:$prefix_len}"
+
+    # Bright magenta for unique prefix, gray for rest.
+    output+="%{$fg_bold[magenta]%}${prefix:gs/%/%%}%{$fg[black]%}${suffix:gs/%/%%}%{$fg[red]%}"
   fi
 
   # Add bookmarks if enabled and present.
