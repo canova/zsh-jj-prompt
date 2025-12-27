@@ -48,7 +48,7 @@ Source the plugin file directly in your `~/.zshrc`:
 source /path/to/zsh-jj-prompt.plugin.zsh
 ```
 
-Note: Async support requires oh-my-zsh's async infrastructure. Without oh-my-zsh, the plugin will run in synchronous mode.
+Note: Async support requires oh-my-zsh. Without it, the plugin runs in synchronous mode.
 
 ## Usage
 
@@ -74,32 +74,19 @@ If you've disabled the drop-in mode, add the `jj_prompt_info()` function to your
 
 **Note**: The plugin automatically falls back to `git_prompt_info()` when not in a jj repository, so you can use `jj_prompt_info()` everywhere and it will show the appropriate prompt.
 
-### Basic Example (Robbyrussell-style)
+### Examples
 
 Add to your theme or `~/.zshrc`:
 
 ```bash
-PROMPT='%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg[cyan]%}%c%{$reset_color%}'
+# Left prompt
 PROMPT+=' $(jj_prompt_info)'
-```
 
-### Right Prompt Example
-
-```bash
+# Right prompt
 RPROMPT='$(jj_prompt_info)'
-```
 
-### Using Individual Functions
-
-```bash
-# Just the change ID
-PROMPT+='$(jj_change_id) '
-
-# Just the bookmarks
-PROMPT+='$(jj_bookmarks) '
-
-# Just the status indicators
-PROMPT+='$(jj_prompt_status)'
+# Individual components
+PROMPT+='$(jj_change_id) $(jj_bookmarks) $(jj_prompt_status)'
 ```
 
 ## Output Examples
@@ -157,89 +144,43 @@ ZSH_THEME_JJ_PROMPT_DIVERGENT="⇔"
 ### Example Custom Configuration
 
 ```bash
-# Minimal style
-ZSH_THEME_JJ_PROMPT_PREFIX="%{$fg[yellow]%}"
-ZSH_THEME_JJ_PROMPT_SUFFIX=" "
-ZSH_THEME_JJ_PROMPT_CLEAN=""
+# Minimal style - bookmarks only
 ZSH_THEME_JJ_SHOW_CHANGE_ID=false
-
-# Powerline style
-ZSH_THEME_JJ_PROMPT_PREFIX="%{$bg[blue]%}%{$fg[black]%}  "
-ZSH_THEME_JJ_PROMPT_SUFFIX="%{$reset_color%}%{$fg[blue]%}%{$reset_color%} "
+ZSH_THEME_JJ_PROMPT_PREFIX="%{$fg[yellow]%}"
 ZSH_THEME_JJ_PROMPT_CLEAN=""
 ```
 
 ## Performance
 
-The plugin uses async prompts by default (requires zsh 5.0.6+), providing non-blocking prompt updates:
+The plugin uses async prompts by default (requires zsh 5.0.6+) for non-blocking updates. To improve performance in large repositories, disable ancestor bookmarks:
 
-- **Core info**: ~100-130ms (async, non-blocking)
-- **Ancestor bookmarks**: +50-80ms (separate command)
-- **Total**: ~150-210ms (acceptable for async prompt)
-
-### Performance Tips
-
-1. **Disable ancestor bookmarks** if you don't need them:
-   ```bash
-   ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
-   ```
-
-2. **Reduce ancestor search depth**:
-   ```bash
-   ZSH_THEME_JJ_ANCESTOR_DEPTH=5
-   ```
-
-3. **Shorter change ID**:
-   ```bash
-   ZSH_THEME_JJ_CHANGE_ID_LENGTH=6
-   ```
+```bash
+ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
+```
 
 ## Troubleshooting
 
 ### Plugin doesn't show up
 
-1. Verify you're in a jj repository:
-   ```bash
-   jj status
-   ```
-
-2. Test the function directly:
-   ```bash
-   jj_prompt_info
-   ```
-
-3. Check if jj is in PATH:
-   ```bash
-   which jj
-   ```
-
-### Prompt shows but looks wrong
-
-1. Check your theme variables are set correctly.
-2. Try resetting to defaults by unsetting all `ZSH_THEME_JJ_*` variables.
-3. Make sure you're using zsh color codes correctly (`%{$fg[red]%}`).
+1. Verify jj is installed: `which jj`
+2. Test the function directly: `jj_prompt_info`
+3. Check you're in a jj repository: `jj status`
 
 ### Slow prompt
 
-1. Check if you're in a very large repository.
-2. Disable ancestor bookmarks: `ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false`
-3. Verify async mode is active (requires zsh 5.0.6+):
-   ```bash
-   zsh --version
-   ```
+Disable ancestor bookmarks in large repositories:
+```bash
+ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
+```
 
 ### Async not working
 
-Async support requires:
-- oh-my-zsh installed
-- zsh 5.0.6 or newer
-- The plugin loaded via oh-my-zsh plugins array
+Requires oh-my-zsh and zsh 5.0.6+. Check your version: `zsh --version`
 
 ## Requirements
 
-- [Jujutsu (jj)](https://github.com/martinvonz/jj) installed and in PATH
-- zsh 5.0.6+ (for async support)
-- oh-my-zsh (recommended, for async support)
+- [Jujutsu (jj)](https://github.com/martinvonz/jj) installed
+- zsh 5.0.6+ and oh-my-zsh (for async support)
 
 ## Available Functions
 
