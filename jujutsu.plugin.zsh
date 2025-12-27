@@ -106,7 +106,7 @@ function _omz_jj_prompt_info() {
     local suffix="${change_id:$prefix_len}"
 
     # Bright magenta for unique prefix, gray for rest.
-    output+="%{$fg_bold[magenta]%}${prefix:gs/%/%%}%{$fg[black]%}${suffix:gs/%/%%}%{$fg[red]%}"
+    output+="%{$fg_bold[magenta]%}${prefix:gs/%/%%}%{$fg[black]%}${suffix:gs/%/%%}"
   fi
 
   # Add bookmarks if enabled and present.
@@ -114,7 +114,7 @@ function _omz_jj_prompt_info() {
     if [[ -n "$bookmarks" ]]; then
       # Add space before bookmarks if change_id was shown.
       [[ "$ZSH_THEME_JJ_SHOW_CHANGE_ID" != "false" ]] && output+=" "
-      output+="${bookmarks:gs/%/%%}${ancestor_bookmarks:gs/%/%%}"
+      output+="%{$fg_bold[magenta]%}${bookmarks:gs/%/%%}${ancestor_bookmarks:gs/%/%%}"
     fi
   fi
 
