@@ -27,7 +27,7 @@ function in_jj_repo() {
 : ${ZSH_THEME_JJ_CHANGE_ID_LENGTH:=8}
 
 # Drop-in replacement mode: override git_prompt_info to use jj when available.
-: ${ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT:=false}
+: ${ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT:=true}
 
 # Formatting.
 : ${ZSH_THEME_JJ_PROMPT_PREFIX:="%{$fg_bold[blue]%}jj:(%{$fg[red]%}"}

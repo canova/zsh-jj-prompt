@@ -50,7 +50,25 @@ Note: Async support requires oh-my-zsh's async infrastructure. Without oh-my-zsh
 
 ## Usage
 
-Add the `jj_prompt_info()` function to your prompt. The plugin follows the same pattern as oh-my-zsh's git plugin.
+### Drop-in Replacement (Default, Recommended)
+
+By default, the plugin works as a drop-in replacement for `git_prompt_info`. It automatically overrides your theme's git prompt function to show jj information in jj repositories and git information in git repositories. **No theme modifications needed!**
+
+Just install the plugin and your existing theme will work with both jj and git repos automatically.
+
+If you want to disable this behavior and use explicit `jj_prompt_info()` calls instead, set this in your `~/.zshrc` **before** loading the plugin:
+
+```bash
+# Disable drop-in replacement mode.
+ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=false
+
+# Then load plugins.
+plugins=(... zsh-jj-prompt)
+```
+
+### Explicit Usage
+
+If you've disabled the drop-in mode, add the `jj_prompt_info()` function to your prompt. The plugin follows the same pattern as oh-my-zsh's git plugin.
 
 **Note**: The plugin automatically falls back to `git_prompt_info()` when not in a jj repository, so you can use `jj_prompt_info()` everywhere and it will show the appropriate prompt.
 
@@ -82,20 +100,6 @@ PROMPT+='$(jj_bookmarks) '
 PROMPT+='$(jj_prompt_status)'
 ```
 
-### Drop-in Replacement for git_prompt_info
-
-If you want to use this plugin as a true drop-in replacement without modifying your existing theme, enable override mode in your `~/.zshrc` **before** loading the plugin:
-
-```bash
-# Enable drop-in replacement mode.
-ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=true
-
-# Then load plugins.
-plugins=(... zsh-jj-prompt)
-```
-
-With this enabled, your existing theme's `git_prompt_info` calls will automatically use jj in jj repositories and git in git repositories. No theme modifications needed!
-
 ## Output Examples
 
 - `jj:(qpvuntsm main) ` - On main bookmark
@@ -118,8 +122,8 @@ ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=true
 # Change ID length (default: 8)
 ZSH_THEME_JJ_CHANGE_ID_LENGTH=8
 
-# Drop-in replacement mode: override git_prompt_info (default: false)
-ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=false
+# Drop-in replacement mode: override git_prompt_info (default: true)
+ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=true
 ```
 
 ### Formatting
