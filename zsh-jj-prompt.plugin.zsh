@@ -30,14 +30,14 @@ function in_jj_repo() {
 : ${ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT:=true}
 
 # Formatting.
-: ${ZSH_THEME_JJ_PROMPT_PREFIX:="%{$fg_bold[blue]%}jj:(%{$fg[red]%}"}
-: ${ZSH_THEME_JJ_PROMPT_SUFFIX:="%{$reset_color%} "}
-: ${ZSH_THEME_JJ_PROMPT_CLEAN:="%{$fg[blue]%})"}
+: ${ZSH_THEME_JJ_PROMPT_PREFIX="%{$fg_bold[blue]%}jj:(%{$fg[red]%}"}
+: ${ZSH_THEME_JJ_PROMPT_SUFFIX="%{$reset_color%} "}
+: ${ZSH_THEME_JJ_PROMPT_CLEAN="%{$fg[blue]%})"}
 
 # Status indicators.
-: ${ZSH_THEME_JJ_PROMPT_CONFLICT:="!"}
-: ${ZSH_THEME_JJ_PROMPT_EMPTY:="?"}
-: ${ZSH_THEME_JJ_PROMPT_DIVERGENT:="⇔"}
+: ${ZSH_THEME_JJ_PROMPT_CONFLICT="!"}
+: ${ZSH_THEME_JJ_PROMPT_EMPTY="?"}
+: ${ZSH_THEME_JJ_PROMPT_DIVERGENT="⇔"}
 
 #
 # Internal async handler function.
