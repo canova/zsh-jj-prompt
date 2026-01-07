@@ -87,6 +87,9 @@ function _omz_jj_prompt_info() {
       --no-graph --limit 1 -T \
       'bookmarks.map(|ref| ref.name()).join(",")')
 
+    # Extract only the closest bookmark if multiple exist.
+    ancestor_name=${ancestor_name%%,*}
+
     if [[ -n "$ancestor_name" ]]; then
       # Calculate distance using separate command.
       # Count commits between ancestor bookmark and @.
