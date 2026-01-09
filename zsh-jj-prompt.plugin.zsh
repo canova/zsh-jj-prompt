@@ -6,7 +6,7 @@ autoload -Uz is-at-least
 # The jj prompt's jj commands are read-only and should not interfere with other processes.
 # We wrap in a local function to ensure consistent behavior.
 function __jj_prompt_command() {
-  command jj "$@" 2>/dev/null
+  command jj --ignore-working-copy "$@" 2>/dev/null
 }
 
 # Check if we're in a jj repository.
