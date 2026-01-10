@@ -35,6 +35,8 @@ function in_jj_repo() {
 : ${ZSH_THEME_JJ_PROMPT_CLEAN="%{$fg[blue]%})"}
 
 # Status indicators.
+: ${ZSH_THEME_JJ_PROMPT_STATUS_START="["}
+: ${ZSH_THEME_JJ_PROMPT_STATUS_END="]"}
 : ${ZSH_THEME_JJ_PROMPT_CONFLICT="!"}
 : ${ZSH_THEME_JJ_PROMPT_EMPTY="?"}
 : ${ZSH_THEME_JJ_PROMPT_DIVERGENT="⇔"}
@@ -134,7 +136,7 @@ function _omz_jj_prompt_info() {
 
   # Close the prompt or add clean indicator.
   if [[ -n "$jj_status" ]]; then
-    output+="%{$fg[blue]%}) %{$fg[yellow]%}[$jj_status]"
+    output+="%{$fg[blue]%}) %{$fg[yellow]%}${ZSH_THEME_JJ_PROMPT_STATUS_START}$jj_status${ZSH_THEME_JJ_PROMPT_STATUS_END}"
   else
     output+="$ZSH_THEME_JJ_PROMPT_CLEAN"
   fi

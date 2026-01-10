@@ -131,6 +131,12 @@ ZSH_THEME_JJ_PROMPT_CLEAN="%{$fg[blue]%})"
 ### Status Indicators
 
 ```bash
+# Status wrapper start (default: [)
+ZSH_THEME_JJ_PROMPT_STATUS_START="["
+
+# Status wrapper end (default: ])
+ZSH_THEME_JJ_PROMPT_STATUS_END="]"
+
 # Conflict indicator (default: !)
 ZSH_THEME_JJ_PROMPT_CONFLICT="!"
 
