@@ -62,7 +62,7 @@ function _omz_jj_prompt_info() {
      change_id.short('${ZSH_THEME_JJ_CHANGE_ID_LENGTH}') ++ "|" ++
      bookmarks.map(|ref| ref.name()).join(",") ++ "|" ++
      if(conflict, "1", "") ++ "|" ++
-     if(description == "", "1", "") ++ "|" ++
+     if(description == "" && !empty, "1", "") ++ "|" ++
      if(divergent, "1", "")')
 
   # Check if command succeeded.
@@ -194,7 +194,7 @@ function jj_prompt_status() {
 
   local jj_info=$(__jj_prompt_command log -r @ --no-graph -T \
     'if(conflict, "1", "") ++ "|" ++
-     if(description == "", "1", "") ++ "|" ++
+     if(description == "" && !empty, "1", "") ++ "|" ++
      if(divergent, "1", "")')
 
   [[ -n "$jj_info" ]] || return 0
