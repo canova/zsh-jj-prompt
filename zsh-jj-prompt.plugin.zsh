@@ -134,7 +134,7 @@ function _omz_jj_prompt_info() {
 
   # Close the prompt or add clean indicator.
   if [[ -n "$jj_status" ]]; then
-    output+="%{$fg[blue]%}) [$jj_status]"
+    output+="%{$fg[blue]%}) %{$fg[yellow]%}[$jj_status]"
   else
     output+="$ZSH_THEME_JJ_PROMPT_CLEAN"
   fi
