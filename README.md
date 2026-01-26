@@ -93,8 +93,8 @@ PROMPT+='$(jj_change_id) $(jj_bookmarks) $(jj_prompt_status)'
 
 - `jj:(qpvuntsm main) ` - On main bookmark
 - `jj:(kmkuslsw main~3) ` - 3 commits after main
-- `jj:(sqpnquxw) [!]` - Conflicted, no bookmarks
-- `jj:(mzvwutvl trunk) [∅⇔]` - Empty description and divergent
+- `jj:(sqpnquxw) !` - Conflicted, no bookmarks
+- `jj:(mzvwutvl trunk) ∅⇔` - Empty description and divergent
 
 ## Configuration
 
@@ -131,11 +131,11 @@ ZSH_THEME_JJ_PROMPT_CLEAN="%{$fg[blue]%})"
 ### Status Indicators
 
 ```bash
-# Status wrapper start (default: [)
-ZSH_THEME_JJ_PROMPT_STATUS_START="["
+# Status wrapper start (default: empty)
+ZSH_THEME_JJ_PROMPT_STATUS_START=""
 
-# Status wrapper end (default: ])
-ZSH_THEME_JJ_PROMPT_STATUS_END="]"
+# Status wrapper end (default: empty)
+ZSH_THEME_JJ_PROMPT_STATUS_END=""
 
 # Conflict indicator (default: !)
 ZSH_THEME_JJ_PROMPT_CONFLICT="!"
