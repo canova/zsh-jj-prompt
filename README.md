@@ -11,7 +11,7 @@ A zsh plugin for [Jujutsu (jj)](https://github.com/martinvonz/jj) version contro
 - **Ancestor Bookmarks**: Show nearest ancestor bookmark with distance (e.g., `main~3`)
 - **Status Indicators**:
   - `!` - Conflict (merge conflicts present)
-  - `?` - Empty description (commit message needed)
+  - `∅` - Empty description (commit message needed)
   - `⇔` - Divergent (multiple commits with same change_id)
 - **Async Prompts**: Non-blocking prompt updates for smooth UX
 - **Fully Configurable**: All display options via theme variables
@@ -94,7 +94,7 @@ PROMPT+='$(jj_change_id) $(jj_bookmarks) $(jj_prompt_status)'
 - `jj:(qpvuntsm main) ` - On main bookmark
 - `jj:(kmkuslsw main~3) ` - 3 commits after main
 - `jj:(sqpnquxw) [!]` - Conflicted, no bookmarks
-- `jj:(mzvwutvl trunk) [?⇔]` - Empty description and divergent
+- `jj:(mzvwutvl trunk) [∅⇔]` - Empty description and divergent
 
 ## Configuration
 
@@ -140,8 +140,8 @@ ZSH_THEME_JJ_PROMPT_STATUS_END="]"
 # Conflict indicator (default: !)
 ZSH_THEME_JJ_PROMPT_CONFLICT="!"
 
-# Empty description indicator (default: ?)
-ZSH_THEME_JJ_PROMPT_EMPTY="?"
+# Empty description indicator (default: ∅)
+ZSH_THEME_JJ_PROMPT_EMPTY="∅"
 
 # Divergent indicator (default: ⇔)
 ZSH_THEME_JJ_PROMPT_DIVERGENT="⇔"
