@@ -25,6 +25,7 @@ function in_jj_repo() {
 : ${ZSH_THEME_JJ_SHOW_BOOKMARKS:=true}
 : ${ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS:=true}
 : ${ZSH_THEME_JJ_CHANGE_ID_LENGTH:=8}
+: ${ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH:=100}
 
 # Drop-in replacement mode: override git_prompt_info to use jj when available.
 : ${ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT:=true}
@@ -82,10 +83,10 @@ function _omz_jj_prompt_info() {
 
   # Get ancestor bookmarks if enabled and no direct bookmarks.
   local ancestor_bookmarks=""
-  if [[ "$ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS" != "false" && -z "$bookmarks" ]]; then
-    # Find nearest ancestor bookmark (exclude @ itself).
+  if [[ "$ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS" != "false" && -z "$bookmarks" && "$ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH" -gt 0 ]]; then
+    # Find nearest ancestor bookmark within configured depth (exclude @ itself).
     local ancestor_name=$(__jj_prompt_command log \
-      -r "ancestors(@) & bookmarks() & ~@" \
+      -r "ancestors(@, ${ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH}) & bookmarks() & ~@" \
       --no-graph --limit 1 -T \
       'bookmarks.map(|ref| ref.name()).join(",")')
 

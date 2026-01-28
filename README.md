@@ -111,6 +111,9 @@ ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=true
 # Change ID length (default: 8)
 ZSH_THEME_JJ_CHANGE_ID_LENGTH=8
 
+# Ancestor search depth in commits (default: 100, set to 0 to disable)
+ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH=100
+
 # Drop-in replacement mode: override git_prompt_info (default: true)
 ZSH_THEME_JJ_OVERRIDE_GIT_PROMPT=true
 ```
@@ -158,9 +161,13 @@ ZSH_THEME_JJ_PROMPT_CLEAN=""
 
 ## Performance
 
-The plugin uses async prompts by default (requires zsh 5.0.6+) for non-blocking updates. To improve performance in large repositories, disable ancestor bookmarks:
+The plugin uses async prompts by default (requires zsh 5.0.6+) for non-blocking updates. To improve performance in large repositories, you can either limit the ancestor search depth or disable ancestor bookmarks entirely:
 
 ```bash
+# Limit ancestor search to 50 commits (default: 100)
+ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH=50
+
+# Or disable ancestor bookmarks completely
 ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
 ```
 
@@ -174,8 +181,12 @@ ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
 
 ### Slow prompt
 
-Disable ancestor bookmarks in large repositories:
+Reduce the ancestor search depth or disable ancestor bookmarks in large repositories:
 ```bash
+# Reduce search depth
+ZSH_THEME_JJ_ANCESTOR_SEARCH_DEPTH=50
+
+# Or disable completely
 ZSH_THEME_JJ_SHOW_ANCESTOR_BOOKMARKS=false
 ```
 
